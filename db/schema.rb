@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205163859) do
+ActiveRecord::Schema.define(version: 20160208183348) do
+
+  create_table "authors", force: :cascade do |t|
+    t.string "name",    limit: 255
+    t.string "country", limit: 255
+  end
 
   create_table "books", force: :cascade do |t|
     t.string   "title",       limit: 255
