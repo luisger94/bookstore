@@ -4,5 +4,8 @@ class CreateAuthor < ActiveRecord::Migration
       t.string :name
       t.string :country
     end
+
+    create_table :books do |t|
+    	t.belong_to :author, index:true
   end
 end

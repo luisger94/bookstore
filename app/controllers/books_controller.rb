@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /books
   # GET /books.json
   def index
@@ -33,6 +33,7 @@ class BooksController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
+      
       end
     end
   end
@@ -69,6 +70,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :description)
+      params.require(:book).permit(:title, :description, :author_id)
     end
 end
