@@ -3,9 +3,7 @@ class CreateAuthor < ActiveRecord::Migration
     create_table :authors do |t|
       t.string :name
       t.string :country
+      t.timestamps
     end
-
-    create_table :books do |t|
-    	t.belong_to :author, index:true
   end
 end
