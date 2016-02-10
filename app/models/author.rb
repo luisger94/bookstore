@@ -1,7 +1,7 @@
 class Author < ActiveRecord::Base
 	has_many :books
-	validates :name, presence: {message: "of the author is required."}
-	validates :country, presence: {message: "of the author is required."}
+	validates :name, presence: {message: "of the author is required."}, length: {maximum: 25, message: "can not be longer that 25 characters."}
+	validates :country, presence: {message: "of the author is required."}, length: {in: 3..50, message: "must be between 3 and 50 characters."}
 
 	# TODO - add here the validation that the book has a title
 
