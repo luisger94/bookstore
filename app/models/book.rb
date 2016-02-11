@@ -6,7 +6,7 @@ class Book < ActiveRecord::Base
 	
 
 def author_name
-		author.name	
+		author.name
 	end
 
 
