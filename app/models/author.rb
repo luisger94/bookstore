@@ -6,7 +6,7 @@ class Author < ActiveRecord::Base
  # It returns the authors whose names contain one or more words that form the query
   def self.search(query)
     # where(:name, query) -> This would return an exact match of the query
-    where("name like ?", "%#{query}%") 
+      where("name like ? OR country like ?", "%#{query}%", "%#{query}%")
   end
 
 
