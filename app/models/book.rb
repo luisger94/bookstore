@@ -5,10 +5,16 @@ class Book < ActiveRecord::Base
 	validates :description, presence: {message: "of the book is required."}, length: { in: 2..100, message: "must be between 2 and 100 characters."}
 	
 
-def author_name
+ 
+  # It returns the books whose titles contain one or more words that form the query
+  def self.search(query)
+    # where(:title, query) -> This would return an exact match of the query
+    where("title like ?", "%#{query}%") 
+  end
+
+  def author_name
 		author.name
 	end
-
 
 end
 
