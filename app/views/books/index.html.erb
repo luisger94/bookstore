@@ -42,8 +42,11 @@
            of using a Rails form helper -->
       <button class="btn" type="submit"><i class="icon-search"></i></button>
     </div>
+    <%= link_to 'Back', books_path %>
   <% end %>
+
   <%= yield %>
+
 </body>
 
 <%= link_to 'New Book', new_book_path %>
