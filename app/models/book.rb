@@ -17,7 +17,36 @@ class Book < ActiveRecord::Base
 		author.name
 	end
 
+	def categories=(cats)
+		# in case no category was checked, erase any categories already assigned
+		if cats.blank?
+			self.categories.delete_all
+		else
+			# save the checked categories
+  		cats.split(",").each do |cat|
+  			# load the category
+  			category = Category.find_by(id: cat)
+  			# check if this book already belongs to this category
+  			unless self.categories.include?(category)
+		      self.categories << category
+		    end
+		  end
+		end
+	end
+
+	def categories_array
+		self.categories.pluck(:name).join(", ")
+	end
+
+	def has_category?(cat)
+		self.categories.include?(cat)
+	end
+
 end
+
+
+
+
 
 
 
