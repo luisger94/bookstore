@@ -1,16 +1,8 @@
 Rails.application.routes.draw do
 
-
-
-  get 'authentication/signup'
-
-  get 'authentication/login'
-
-  get 'authentication/logout'
-
-  get 'signup/login'
-
-  get 'signup/logout'
+ match 'signup', to: 'authentication#signup', via: [:get, :post]
+ match 'login',  to: 'authentication#login',  via: [:get, :post]
+ get   'logout', to: 'authentication#logout'
 
   resources :books
   resources :authors
