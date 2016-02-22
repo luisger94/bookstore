@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218164634) do
+ActiveRecord::Schema.define(version: 20160222170717) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name",    limit: 255
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 20160218164634) do
 
   add_index "categories_and_books", ["book_id"], name: "index_categories_and_books_on_book_id", using: :btree
   add_index "categories_and_books", ["category_id"], name: "index_categories_and_books_on_category_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
+    t.string   "hashed_password", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   add_foreign_key "books", "authors"
 end

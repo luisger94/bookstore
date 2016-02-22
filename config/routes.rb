@@ -1,16 +1,18 @@
 Rails.application.routes.draw do
 
 
+
   resources :books
   resources :authors
   resources :categories
+  resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
    root 'books#index'
 
-  get 'admin', :to => "book#index"
+  get 'admin', :to => "user#index"
 
   #match ':controller(/:action(/:id))', :via => [:get, :post]
 
