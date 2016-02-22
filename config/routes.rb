@@ -2,6 +2,16 @@ Rails.application.routes.draw do
 
 
 
+  get 'authentication/signup'
+
+  get 'authentication/login'
+
+  get 'authentication/logout'
+
+  get 'signup/login'
+
+  get 'signup/logout'
+
   resources :books
   resources :authors
   resources :categories
