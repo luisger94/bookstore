@@ -22,6 +22,20 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def self.authenticate(email, password)
+		# first check if this email is registered
+		u = User.find_by(email: email)
+
+		# for a valid user, check that the entered password is correct
+		if u
+			# make sure that encrypting the entered password equals 
+			# the hashed_password saved in the database
+			u.encrypt_password(password) == u.hashed_password
+		else
+			false
+		end
+	end
+
 	def set_password(pass)
 		logger.info("\n\n ^^^^ Setting the password to: #{pass.inspect} \n\n")
 		self.hashed_password = self.encrypt_password(pass)

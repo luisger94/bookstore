@@ -13,7 +13,18 @@ class AuthenticationController < ApplicationController
   end
 
   def login
+    if request.post? 
+        User.authenticate(params[:email], params[:password])
+        flash.now[:notice] = "User logged in successfully"
+        # after the user has logged in, take them to the books index
+        redirect_to books_path
+      else
+        # this email is already registered
+        flash.now[:notice] = "Wrong email or password"
+      end
   end
+   
+
 
   def logout
   end

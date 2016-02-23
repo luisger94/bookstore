@@ -1,2 +1,14 @@
-<h1>Authentication#login</h1>
-<p>Find me in app/views/authentication/login.html.erb</p>
+
+<h1>Login now with your email!</h1>
+
+<% if flash[:notice] %>
+  <p style="color: red;"><%= flash[:notice] %></p>
+<% end %>
+
+<%= form_tag('login') do %>
+  <div class="input-append">
+      <p><%= text_field_tag :email, params[:email], class: "span2", placeholder: "Email" %></p>
+      <p><%= password_field_tag :password, params[:nil], class: "span2"%></p>
+      <button class="btn" type="submit">Login</button>
+  </div>
+<% end %>
