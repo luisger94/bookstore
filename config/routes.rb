@@ -15,7 +15,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
    root 'books#index'
 
-  get 'admin', :to => "user#index"
+  get 'admin', to: "user#index"
+
+  get 'users/remove_admin/:id', to: "users#remove_admin"
+  get 'users/make_admin/:id', to: "users#make_admin"
 
   #match ':controller(/:action(/:id))', :via => [:get, :post]
 

@@ -21,8 +21,12 @@
         <td><%= book.author_name %></td>
         <td><%= book.categories_array %></td>
         <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
-        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <% if website_admin? %>
+          <td><%= link_to 'Edit', edit_book_path(book) %></td>
+          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        
       </tr>
     <% end %>
   </tbody>
@@ -41,7 +45,7 @@
       <%= text_field_tag :search, params[:search], class: "span2", placeholder: "Search Books" %>
       <!-- In order to have the "search" icon int the button, we need to use plain HTML instead 
            of using a Rails form helper -->
-      <button class="btn" type="submit"><i class="icon-search"></i></button>
+      <button class="btn" type="submit"><i class="icon-search">Search</i></button>
     </div>
     <%= link_to 'Back', books_path %>
   <% end %>

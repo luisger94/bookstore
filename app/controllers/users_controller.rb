@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_if_admin
+
   def index
     @users = User.all
   end
@@ -48,6 +50,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def remove_admin
+    logger.info("\n\n ^^^^ Remove admin rights for user id: #{params[:id]} \n\n")
+    # load the user
+    user = User.find(params[:id])
+
+    if user
+      user.remove_admin
+    end
+
+    redirect_to action: 'index'
+  end
+
+  def make_admin
+    logger.info("\n\n ^^^^ Give admin rights for user id: #{params[:id]} \n\n")
+    # load the user
+    user = User.find(params[:id])
+
+    if user
+      user.make_admin
+    end
+
+    redirect_to action: 'index'
+  end
+
   private
 
     def set_user
@@ -56,6 +82,14 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :hashed_password)
+    end
+
+    def check_if_admin
+      if logged_in_user and logged_in_user.website_admin?
+        # this guy is a webiste admin, give him access
+      else
+        redirect_to books_path
+      end
     end
 
 end

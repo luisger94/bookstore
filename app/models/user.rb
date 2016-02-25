@@ -30,10 +30,13 @@ class User < ActiveRecord::Base
 		if u
 			# make sure that encrypting the entered password equals 
 			# the hashed_password saved in the database
-			u.encrypt_password(password) == u.hashed_password
-		else
-			false
+			if u.encrypt_password(password) == u.hashed_password
+				# return the user so that in the controller we can
+				# get the user id and save it in the session as the logged in user
+				return u
+			end
 		end
+		false
 	end
 
 	def set_password(pass)
@@ -47,6 +50,14 @@ class User < ActiveRecord::Base
 		# we're using the SHA1 to get a digital signature from the user's password 
 		# and store this into the database
 		Digest::SHA1.hexdigest(pass)
+	end
+
+	def make_admin
+		self.update(website_admin: true)
+	end
+
+	def remove_admin
+		self.update(website_admin: false)
 	end
 
 end
