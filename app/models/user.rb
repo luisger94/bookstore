@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-	validates :email, presence: true
+	validates :email, presence: true, uniqueness: true
 
 	def self.register_user(name, email, password)
 		logger.info("\n\n ^^^^ Registering user with email: #{email.inspect} \n\n")
