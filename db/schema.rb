@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225160843) do
+ActiveRecord::Schema.define(version: 20160229172628) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name",    limit: 255
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160225160843) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "website_admin"
+    t.boolean  "confirmed"
   end
 
   add_foreign_key "books", "authors"

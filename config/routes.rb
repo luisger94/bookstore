@@ -3,6 +3,7 @@ Rails.application.routes.draw do
  match 'signup', to: 'authentication#signup', via: [:get, :post]
  match 'login',  to: 'authentication#login',  via: [:get, :post]
  get   'logout', to: 'authentication#logout'
+ get   'confirm/:id', to: 'authentication#confirm_email'
 
   resources :books
   resources :authors

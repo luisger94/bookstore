@@ -1,6 +1,6 @@
 class Author < ActiveRecord::Base
 	has_many :books, dependent: :destroy
-	validates :name, presence: {message: "of the author is required."}, length: {maximum: 25, message: "can not be longer that 25 characters."}
+	validates :name, presence: {message: "of the author is required."}, length: {maximum: 25, message: "can not be longer that 25 characters."}, uniqueness: true
 	validates :country, presence: {message: "of the author is required."}, length: {in: 3..50, message: "must be between 3 and 50 characters."}
 
  # It returns the authors whose names contain one or more words that form the query

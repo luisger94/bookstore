@@ -3,22 +3,19 @@ class User < ActiveRecord::Base
 	validates :email, presence: true, uniqueness: true
 
 	def self.register_user(name, email, password)
-		logger.info("\n\n ^^^^ Registering user with email: #{email.inspect} \n\n")
-
+		u = User.new(name: name, email: email, confirmed: false)
 		# first, make sure this email is not already registered
-		if User.find_by(email: email)
-			# this email is already registered
-			return false
-		else
-			# move on with creating the user
-			u = User.create(name: name, email: email)
-
-			# now we need to save the password in an encrypted form,
-			# so that looking at the database we won't be able to see
-			# the users' passwords
+		if u.valid?
+			# save the user and the password
 			u.set_password(password)
 
-			return true
+			# send a confirmation email to the user
+			SystemMailer.activate_your_account(u).deliver_now
+		else
+			# there are some errors
+			logger.info("\n\n ^^^^ Errors: #{u.errors.full_messages.inspect} \n\n")
+
+			return false
 		end
 	end
 
@@ -39,11 +36,19 @@ class User < ActiveRecord::Base
 		false
 	end
 
+	def authenticate(pass)
+		self.encrypt_password(pass) == self.hashed_password
+	end
+
+	def alternate_name
+		self.encrypt_password
+	end
+
 	def set_password(pass)
 		logger.info("\n\n ^^^^ Setting the password to: #{pass.inspect} \n\n")
-		self.hashed_password = self.encrypt_password(pass)
+		hashed_password = encrypt_password(pass)
 		# don't forget to save the encrypted password
-		self.save
+		save
 	end
 
 	def encrypt_password(pass)
@@ -58,6 +63,14 @@ class User < ActiveRecord::Base
 
 	def remove_admin
 		self.update(website_admin: false)
+	end
+
+	def confirmed?
+		self.confirmed == true
+	end
+
+	def confirm_account
+		self.update(confirmed: true)
 	end
 
 end

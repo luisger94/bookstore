@@ -52,13 +52,6 @@ class UsersController < ApplicationController
 
   def remove_admin
     logger.info("\n\n ^^^^ Remove admin rights for user id: #{params[:id]} \n\n")
-    # load the user
-    user = User.find(params[:id])
-
-    if user
-      user.remove_admin
-    end
-
     redirect_to action: 'index'
   end
 

@@ -35,6 +35,16 @@ class AuthenticationController < ApplicationController
     redirect_to login_path
   end
 
+  def confirm_email
+    if params[:id]
+      user = User.find_by(id: params[:id])
+      user.confirm_account
+      log_the_user_in(user)
+      logger.info("\n\n ^^^^ User #{user.name} confirms their email address. \n\n")
+    end
+    redirect_to books_path
+  end
+
   private
 
   def log_the_user_in(user)
