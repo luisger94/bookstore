@@ -31,4 +31,6 @@ class Author < ActiveRecord::Base
 		return books.count
 	end
 
+	
+
 end

@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
 	belongs_to :author
 	has_and_belongs_to_many :categories
+	has_many :favorites
 	
 	validates :title, presence: true, length: { maximum: 25, message: "can not be longer that 25 characters."}
 	validates :description, presence: {message: "of the book is required."}, length: { in: 2..100, message: "must be between 2 and 100 characters."}
@@ -41,6 +42,14 @@ class Book < ActiveRecord::Base
 	def has_category?(cat)
 		self.categories.include?(cat)
 	end
+
+	def make_favorite
+		favorites = []
+		self.books.each do |book|
+			favorites << book.favorite
+		end
+	end
+
 
 end
 

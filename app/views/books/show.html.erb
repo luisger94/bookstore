@@ -20,5 +20,12 @@
   <%= @book.categories_array %>
 </p>
 
+<% if confirmed_account? %>
+
+<%= button_to 'Mark as Favorite', method: :make_favorite %> 
+
+<% end %> 
+
+
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>

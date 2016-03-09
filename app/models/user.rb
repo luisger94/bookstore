@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
 	validates :email, presence: true, uniqueness: true
+	has_many :favorites
 
 	def self.register_user(name, email, password)
 		u = User.new(name: name, email: email, confirmed: false)
@@ -72,5 +73,6 @@ class User < ActiveRecord::Base
 	def confirm_account
 		self.update(confirmed: true)
 	end
+
 
 end
